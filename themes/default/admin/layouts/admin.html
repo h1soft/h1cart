@@ -1,0 +1,142 @@
+<!doctype html>
+<html class="no-js" lang="{{_lang}}">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{pageTitle}} - H1Cart</title>
+        <link rel="stylesheet" href="{{BASEPATH}}/themes/default/css/foundation.min.css" />
+        <link rel="stylesheet" href="{{BASEPATH}}/themes/default/css/admin.css" />
+        <script src="{{BASEPATH}}/themes/default/js/vendor/jquery.js"></script>
+        <script src="{{BASEPATH}}/themes/default/js/vendor/modernizr.js"></script>        
+        {%for file in cssFiles%}
+        <link rel="stylesheet" href="{{BASEPATH}}/themes/{{file}}" />
+        {%endfor%}
+        {%for file in jsFiles%}
+        <script src="{{BASEPATH}}/themes/{{file}}"></script>        
+        {%endfor%}
+    </head>
+    <body>
+        <div class="fixed">
+            <nav class="top-bar" data-topbar data-options="sticky_on: large">
+                <ul class="title-area">
+                    <li class="name">
+                        <h1><a href="{{ url_to('index/index') }}">H1Cart</a></h1>
+                    </li>
+                    <li class="toggle-topbar menu-icon"><a href="#"><span>{{_menu}}</span></a></li>
+                </ul>
+
+                <section class="top-bar-section">
+                    <!-- Right Nav Section -->
+                    <ul class="right">
+                        <li ><a href="{{ url_to('index/logout') }}" class="button">{{_logout}}</a></li>
+                        <li class="has-dropdown">
+                            <a href="#">Account</a>
+                            <ul class="dropdown">
+                                <li><a href="{{ url_to('account/setting') }}">{{_account_setting}}</a></li>
+                                <li><a href="{{ url_to('index/logout') }}">{{_logout}}</a></li>
+                            </ul>
+                        </li>                        
+                    </ul>
+
+                    <!-- Left Nav Section -->
+                    <ul class="left">
+                        <li class="has-dropdown">
+                            <a href="#">{{_catalog}}</a>
+                            <ul class="dropdown">
+                                <li><a href="#">{{_categories}}</a></li>
+                                <li><a href="#">{{_products}}</a></li>
+                                <li class="has-dropdown">
+                                    <a href="#">{{_attributes}}</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">{{_attributes}}</a></li>
+                                        <li><a href="#">{{_attribute_groups}}</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">{{_options}}</a></li>
+                                <li><a href="#">{{_manufacturer}}</a></li>
+                                <li><a href="#">{{_reviews}}</a></li>
+                                <li><a href="#">{{_pages}}</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown">
+                            <a href="#">{{_extensions}}</a>
+                            <ul class="dropdown">
+                                <li><a href="#">{{_modules}}</a></li>
+                                <li><a href="#">{{_shipping}}</a></li>                              
+                                <li><a href="#">{{_payment}}</a></li>                              
+                                <li><a href="#">{{_order_totals}}</a></li>                              
+                            </ul>
+                        </li>                        
+                        <li class="has-dropdown">
+                            <a href="#">{{_sales}}</a>
+                            <ul class="dropdown">
+                                <li><a href="#">{{_orders}}</a></li>
+                                <li class="has-dropdown">
+                                    <a href="#">{{_customer}}</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">{{_customer}}</a></li>
+                                        <li><a href="#">{{_customer_groups}}</a></li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="has-dropdown">
+                            <a href="#">{{_reports}}</a>
+                            <ul class="dropdown">
+                                <li class="has-dropdown">
+                                    <a href="#">{{_sales}}</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">{{_orders}}</a></li>
+                                    </ul>
+                                </li>                                                                   
+                            </ul>
+                        </li>
+                        <li class="has-dropdown">
+                            <a href="#">{{_system}}</a>
+                            <ul class="dropdown">
+                                <li><a href="#">{{_settings}}</a></li>                                
+                                <li class="has-dropdown">
+                                    <a href="#">{{_users}}</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">{{_users}}</a></li>
+                                        <li><a href="#">{{_users_groups}}</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">{{_backup_restore}}</a></li>                                                     
+                            </ul>
+                        </li>
+                        <li><a href="http://www.h1cart.com" target="_blank">{{_help}}</a></li>
+                    </ul>
+                </section>
+            </nav>
+        </div>
+        <ul class="breadcrumbs">
+            <li><a href="{{ url_to('index/index') }}">{{text_home}}</a></li>                       
+            {% for item in breadcrumbs %}
+            <li><a href="{{item}}">{{item.name}}</a></li>                          
+            {% endfor %}
+        </ul>
+        <div class="row ">
+            <div class="large-12 columns">
+                {%if flash(false)%}   
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div data-alert class="alert-box {{flashCode(false)}} radius">
+                            {{flash()}}
+                            <a href="#" class="close">&times;</a>
+                        </div>
+                    </div>
+                </div>               
+                {%endif%}
+                <h4>{{_pageTitle}}</h4>                
+            </div>
+        </div>
+        {% block content %}{% endblock %}
+
+        <script src="{{BASEPATH}}/themes/default/js/foundation.min.js"></script>
+        <script>
+$(document).foundation();
+        </script>
+    </body>
+</html>

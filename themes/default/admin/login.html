@@ -1,0 +1,59 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>H1Cart | Welcome</title>
+        <link rel="stylesheet" href="{{BASEPATH}}/themes/default/css/foundation.min.css" />
+        <link rel="stylesheet" href="{{BASEPATH}}/themes/default/css/admin.css" />
+        <script src="{{BASEPATH}}/themes/default/js/vendor/modernizr.js"></script>
+    </head>
+    <body>
+
+        <div class="row">
+            <div class="large-12 columns text-center">
+                <h1>{{loginTitle}}</h1>
+            </div>
+        </div>
+
+
+
+        <div class="row ">
+            <div class="large-12 columns">
+                <div class="panel small-3">
+                    <form role="form" method="post" action="" >
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <label>{{_username}}</label>
+                                <input type="text" placeholder="{{_placeholderusername}}" name="username" type="username" autofocus>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <label>{{_password}}</label>
+                                <input type="password" placeholder="{{_placeholderpassword}}"  name="password">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-12 columns">
+                                {%if flash(false)%}          
+                                <div data-alert class="alert-box {{flashCode(false)}} radius">
+                                    {{flash()}}
+                                    <a href="#" class="close">&times;</a>
+                                </div>           
+                                {%endif%}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="large-12 columns margin-center text-right">
+                                <input class="success button" type="submit" value="{{button_login}}" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

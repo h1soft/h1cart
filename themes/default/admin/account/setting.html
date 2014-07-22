@@ -1,0 +1,42 @@
+{% extends "admin/layouts/admin.html" %}
+{% block content %}
+<div class="row ">
+    <div class="large-12 columns">
+        <div class="panel">            
+            <form name="hform" id="hform" method="post" action="">   
+
+                <div class="row">
+                    <div class="large-3 columns">
+                        <label>{{_username}}</label>
+                        <input name="username" type="text" value="{{item.username}}" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-3 columns">
+                        <label>{{_password}}</label>
+                        <input class="form-control" type="password" placeholder="{{_placeholderpassword}}" name="oldpasswd" value="">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-3 columns">
+                        <label>{{_newpassword}}</label>
+                        <input class="form-control" type="password"  name="newpasswd" value="">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-3 columns">
+                        <label>{{_renewpassword}}</label>
+                        <input class="form-control" type="password"  name="renewpasswd" value="">
+                    </div>
+                </div>
+
+                <input type='hidden' name='id' value="{{item.id}}" />
+                <button type="submit" class="medium success button">{{button_save}}</button>                                
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

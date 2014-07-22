@@ -1,0 +1,42 @@
+{% extends "admin/layouts/admin.html" %}
+{% block content %}
+<div class="row ">
+    <div class="large-12 columns">
+        <br/>
+        <div class="panel">
+            <table class="large-12"> 
+                <thead>
+                    <tr>
+                        <th colspan="4">{{_system_information}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>{{_phpversion}}</strong></td>
+                        <td>{{PHP_VERSION}}</td>
+                        <td><strong>{{_uploadsize}}</strong></td>
+                        <td>{{UPLOAD_MAX_FILESIZE}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{_gdlib}}</strong></td>
+                        <td>{{GD_INFO['GD Version']}}</td>
+                        <td><strong>{{_support_image}}</strong></td>
+                        <td>{%for item in GD_IMGTYPE%}
+                            {{item}}
+                            {%endfor%}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{_framework}}</strong></td>
+                        <td>{{HVERSION}}</td>
+                        <td><strong>{{_h1cart_version}}</strong></td>
+                        <td>{{H1CART}}</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
