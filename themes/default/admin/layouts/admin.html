@@ -3,11 +3,12 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{{pageTitle}} - H1Cart</title>
+        <title>{{_pageTitle}} - H1Cart</title>
         <link rel="stylesheet" href="{{BASEPATH}}/themes/default/css/foundation.min.css" />
         <link rel="stylesheet" href="{{BASEPATH}}/themes/default/css/admin.css" />
         <script src="{{BASEPATH}}/themes/default/js/vendor/jquery.js"></script>
         <script src="{{BASEPATH}}/themes/default/js/vendor/modernizr.js"></script>        
+        <script src="{{BASEPATH}}/themes/default/js/admin.js"></script>        
         {%for file in cssFiles%}
         <link rel="stylesheet" href="{{BASEPATH}}/themes/{{file}}" />
         {%endfor%}
@@ -95,12 +96,12 @@
                         <li class="has-dropdown">
                             <a href="#">{{_system}}</a>
                             <ul class="dropdown">
-                                <li><a href="#">{{_settings}}</a></li>                                
+                                <li><a href="{{ url_to('setting/index') }}">{{_settings}}</a></li>                                
                                 <li class="has-dropdown">
                                     <a href="#">{{_users}}</a>
                                     <ul class="dropdown">
-                                        <li><a href="#">{{_users}}</a></li>
-                                        <li><a href="#">{{_users_groups}}</a></li>
+                                        <li><a href="{{ url_to('auth/group') }}">{{_users}}</a></li>
+                                        <li><a href="{{ url_to('auth/group') }}">{{_users_groups}}</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#">{{_backup_restore}}</a></li>                                                     
@@ -132,9 +133,8 @@
                 <h4>{{_pageTitle}}</h4>                
             </div>
         </div>
-        {% block content %}{% endblock %}
-
         <script src="{{BASEPATH}}/themes/default/js/foundation.min.js"></script>
+        {% block content %}{% endblock %}                
         <script>
 $(document).foundation();
         </script>

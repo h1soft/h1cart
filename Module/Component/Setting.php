@@ -19,21 +19,74 @@ namespace Module\Component;
 class Setting extends \H1Soft\H\Singleton {
 
     private $db;
-    
     private $setting = array();
 
     public function init() {
         $this->db = \H1Soft\H\Db\Db::getConnection();
     }
 
-    public function load($group_name, $store_id = 0){
-        $settings = $this->db->where('group',$group_name)->where('store_id', $store_id)->get('setting');
-        foreach($settings as $value){
+    /**
+     * 
+     * @param type $group_name
+     * @return \Module\Component\Setting
+     */
+    public function load($group_name) {
+        $settings = $this->db->where('group', $group_name)->get('setting');
+        foreach ($settings as $value) {
             $this->setting[$value['group']][$value['key']] = $value['value'];
-        }        
+        }
+        return $this;
     }
-    
-    public function get($key){
-        
+
+    public function group($key) {
+        if (isset($this->setting[$key])) {
+            return $this->setting[$key];
+        } else {
+            $this->load($key);
+            return isset($this->setting[$key]) ? $this->setting[$key] : array();
+        }
     }
+
+    public function get($key) {
+        $skey = explode('.', $key);
+        if (count($skey) == 2) {
+            if (!isset($this->setting[$skey[0]])) {
+                $this->load($key);
+            }
+            if (isset($this->setting[$skey[0]][$skey[1]])) {
+                return $this->setting[$skey[0]][$skey[1]];
+            }
+        } else {
+            return $this->group($key);
+        }
+        return NULL;
+    }
+
+    public function save($group, $config) {
+        if (!is_array($config)) {
+            return false;
+        }
+        $settings_rs = $this->db->where('group', $group)->get('setting');
+        foreach ($settings_rs as $value) {
+            $settings[$value['key']] = $value['value'];
+        }
+        foreach ($config as $key => $value) {
+            $serialized = 0;
+            if(!is_string($value)){
+                $value = serialize($value);
+                $serialized = 1;
+            }
+            if (isset($settings) && key_exists($key, $settings)) {
+                $this->db->update('setting', array('value' => $value), "`group`='$group' AND `key`='$key'");
+            } else {
+                $this->db->insert('setting', array(
+                    'value' => $value,
+                    'group' => $group,
+                    'key' => $key,
+                    'serialized'=>$serialized
+                ));
+            }
+        }
+    }
+
 }

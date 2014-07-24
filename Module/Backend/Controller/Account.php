@@ -25,8 +25,7 @@ class Account extends \H1Soft\H\Web\Controller {
 
     public function settingAction() {
         $this->isAdmin();
-        $this->assign('menu_setting', 1);
-        $this->assign('pageTitle', "Account Setting");        
+          
         $adminHelper = new \Module\Backend\Helper\Account();
         $auth = \H1Soft\H\Web\Auth::getInstance();
         $admin = $adminHelper->getAccount($auth->getId());

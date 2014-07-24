@@ -20,6 +20,7 @@ $_['text_pagination']       = 'Showing {start} to {end} of {total} ({pages} Page
 $_['text_separator']        = ' &raquo; ';
 
 // Buttons
+$_['button_select']    = 'Select';
 $_['button_add_address']    = 'Add Address';
 $_['button_back']           = 'Back';
 $_['button_save']           = 'Save';

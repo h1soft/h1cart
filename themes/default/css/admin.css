@@ -8,3 +8,12 @@
 .row {
     min-width: 100%;
 }
+
+.tabs .tab-title.active a  {
+    background-color: #DFDFDF;
+}
+.tabs input ,.tabs button {
+    margin-top: 3px;
+    margin-left: 20px;
+    margin-bottom: 0px;
+}

@@ -1,0 +1,264 @@
+{% extends "admin/layouts/admin.html" %}
+{% block content %}
+<div class="row ">
+    <div class="large-12 columns">
+        <form name="hform" id="hform" method="post" action=""> 
+            <ul class="tabs" data-tab>
+                <li class="tab-title active"><a href="#panel2-1">{{_general}}</a></li>
+                <li class="tab-title"><a href="#panel2-2">{{_store}}</a></li>
+                <li class="tab-title"><a href="#panel2-3">{{_local}}</a></li>
+                <li class="tab-title"><a href="#panel2-4">{{_options}}</a></li>                
+                <li class="tab-title"><a href="#panel2-5">{{_image}}</a></li>  
+                <li class="tab-title"><a href="#panel2-6">{{_mail}}</a></li>
+                <li class="tab-title">
+                    <button type="submit" class="medium success button">{{button_save}}</button>    
+                </li>
+            </ul>
+            <div class="tabs-content">
+                <div class="content active" id="panel2-1">
+                    <div class="panel">
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_store_name}}</label>
+                                <input name="system[store_name]" type="text" value="{{system.store_name}}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_store_owner}}</label>
+                                <input name="system[store_owner]" type="text" value="{{system.store_owner}}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_address}}</label>
+                                <textarea name="system[address]" type="text" >{{system.address}}</textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_email}}</label>
+                                <input name="system[email]" type="text" value="{{system.email}}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_telephone}}</label>
+                                <input name="system[telephone]" type="text" value="{{system.telephone}}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_fax}}</label>
+                                <input name="system[fax]" type="text" value="{{system.fax}}" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="content" id="panel2-2">
+                    <div class="panel">
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_mtkeywords}}</label>
+                                <input name="system[meta_tag_keywords]" type="text" value="{{system.meta_tag_keywords}}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_mtdescription}}</label>
+                                <textarea name="system[meta_tag_description]" type="text" >{{system.meta_tag_description}}</textarea>
+                            </div>
+                        </div>                        
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_usessl}}</label>
+                                <input type="radio" name="system[usessl]" {{system.usessl?"checked='checked'"}} value="1" id="usessl1"><label for="usessl1">{{text_yes}}</label>
+                                <input type="radio" name="system[usessl]" {{system.usessl?:"checked='checked'"}} value="0" id="usessl2"><label for="usessl2">{{text_no}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_theme}}</label>
+                                <select name="system[theme]">
+                                    {%for skin in themes%}
+                                    <option value="{{skin}}"  {%if skin == system.theme%}selected="selected"{%endif%}>{{skin}}</option>          
+                                    {%endfor%}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content" id="panel2-3">
+                    <div class="panel">
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_language}}</label>
+                                <select name="system[language]">
+                                    {%for lang in langs%}
+                                    <option value="{{lang.id}}"  {%if lang.id == system.language%}selected="selected"{%endif%}>{{lang.name}}</option>          
+                                    {%endfor%}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_adminlanguage}}</label>
+                                <select name="system[admin_language]">
+                                    {%for lang in langs%}
+                                    <option value="{{lang.id}}"  {%if lang.id == system.admin_language%}selected="selected"{%endif%}>{{lang.name}}</option>          
+                                    {%endfor%}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content" id="panel2-4">
+                    <div class="panel"> 
+
+                        <h4>{{_items}}</h4>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_items_prepage}}</label>
+                                <input name="system[item_pre_page]" type="text" value="{{system.item_pre_page}}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_admin_items_prepage}}</label>
+                                <input name="system[admin_item_pre_page]" type="text" value="{{system.admin_item_pre_page}}" />
+                            </div>
+                        </div>
+                        <h4>{{_products}}</h4>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_allow_reviews}}</label>
+                                <input type="radio" name="system[allow_reviews]" {{system.allow_reviews?"checked='checked'"}} value="1" id="allow_reviews1"><label for="allow_reviews1">{{text_yes}}</label>
+                                <input type="radio" name="system[allow_reviews]" {{system.allow_reviews?:"checked='checked'"}} value="0" id="allow_reviews2"><label for="allow_reviews2">{{text_no}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content" id="panel2-5">
+                    <div class="panel">
+                        <div class="row">
+                            <div class="large-3 columns">
+
+                                <div class="row collapse">
+                                    <label>{{_store_logo}}</label>
+                                    <div class="small-9 columns">                                        
+                                        <input name="system[store_logo]" readonly="readonly" type="text" id="store_logo" value="{{system.store_logo}}" />
+                                        <a class="th" href="#">
+                                            <img src="{{system.store_logo}}">
+                                        </a>
+                                    </div>
+                                    <div class="small-3 columns">
+                                        <a id="store_logo_select" class="fancybox fancybox-iframe button tiny small" href="{{BASEPATH}}/thirdparty/filemanager/dialog.php?type=1&amp;field_id=store_logo">
+                                            {{button_select}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <div class="row collapse">
+                                    <label>{{_store_icon}}</label>
+                                    <div class="small-9 columns">                                        
+                                        <input name="system[store_icon]" readonly="readonly" id="store_icon" type="text" value="{{system.store_icon}}" />
+                                        <a class="th" href="#">
+                                            <img src="{{system.store_icon}}">
+                                        </a>
+                                    </div>
+                                    <div class="small-3 columns">
+                                        <a id="store_logo_select" class="fancybox fancybox-iframe button tiny small" href="{{BASEPATH}}/thirdparty/filemanager/dialog.php?type=1&amp;field_id=store_icon">
+                                            {{button_select}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content" id="panel2-6">
+                    <div class="panel">
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_mail_protocol}}</label>
+                                <select name="mail[mail_protocol]">
+                                    <option value="MAIL" {{mail.mail_protocol=="MAIL"?"selected='selected'"}}>Mail</option>
+                                    <option value="SMTP" {{mail.mail_protocol=="SMTP"?"selected='selected'"}}>Smtp</option>
+                                </select>                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_smtp_host}}</label>
+                                <input name="mail[smtp_host]" type="text"  value="{{mail.smtp_host}}" />
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_smtp_username}}</label>
+                                <input name="mail[smtp_username]" type="text"  value="{{mail.smtp_username}}" />
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_smtp_password}}</label>
+                                <input name="mail[smtp_password]" type="text"  value="{{mail.smtp_password}}" />
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_smtp_port}}</label>
+                                <input name="mail[smtp_port]" type="text"  value="{{mail.smtp_port}}" />
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_smtp_timeout}}</label>
+                                <input name="mail[smtp_timeout]" type="text"  value="{{mail.smtp_timeout}}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_new_order_alert_mail}}</label>
+                                <input type="radio" name="mail[new_order_alert]" {{mail.new_order_alert?"checked='checked'"}} value="1" id="new_order_alert1"><label for="allow_reviews1">{{text_yes}}</label>
+                                <input type="radio" name="mail[new_order_alert]" {{mail.new_order_alert?:"checked='checked'"}} value="0" id="new_order_alert2"><label for="allow_reviews2">{{text_no}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add mousewheel plugin (this is optional) -->
+<script type="text/javascript" src="{{BASEPATH}}/thirdparty/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+
+<!-- Add fancyBox main JS and CSS files -->
+<script type="text/javascript" src="{{BASEPATH}}/thirdparty/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
+<link rel="stylesheet" type="text/css" href="{{BASEPATH}}/thirdparty/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
+<script>
+$(document).ready(function() {
+    $('.fancybox').fancybox();
+    $('#store_logo_select').fancybox({
+        maxWidth: 1000,
+        maxHeight: 600,
+        fitToView: false,
+        width: '80%',
+        height: '80%',
+        autoSize: false,
+        type: 'iframe',
+        closeClick: false,
+        openEffect: 'none',
+        closeEffect: 'none'
+    });
+
+});
+
+</script>
+{% endblock %}

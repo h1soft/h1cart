@@ -14,17 +14,13 @@ namespace Module;
 define('H1CART', '1.0');
 
 use Module\Component\Language;
-use Module\Component\Store;
+//use Module\Component\Store;
 
 class Bootstrap extends \H1Soft\H\Web\Bootstarp {
 
     public function ApplicationStart() {
         //加载语言包
         Language::getInstance()->load('common');
-       
-        //店铺
-        Store::getInstance();
-       
     }
 
 }

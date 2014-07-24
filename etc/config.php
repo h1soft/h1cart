@@ -28,7 +28,7 @@ return array(
     'databases' => array(
         'db' => array(
             'driver' => 'mysqli',
-            'host' => 'localhost',
+            'host' => '127.0.0.1',
             'database' => 'h1cart',
             'username' => 'root',
             'password' => '',
