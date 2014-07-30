@@ -1,0 +1,157 @@
+{% extends "admin/layouts/admin.html" %}
+{% block content %}
+<div class="row ">
+    <div class="large-12 columns">
+        <form name="hform" id="hform" method="post" action=""> 
+            <ul class="tabs" data-tab>
+                <li class="tab-title active"><a href="#panel2-1">{{_general}}</a></li>
+                <li class="tab-title"><a href="#panel2-2">{{_data}}</a></li>               
+                <li class="tab-title">
+                    <button type="submit" class="medium success button">{{button_save}}</button>    
+                </li>
+            </ul>
+            <div class="tabs-content">
+                <div class="content active" id="panel2-1">
+                    <div class="panel clearfix">
+
+                        <ul class="tabs " data-tab>
+                            {%for lang in languages%}
+                            <li class="tab-title small {{loop.first?"active"}}"><a href="#panel_{{lang.id}}">{{lang.name}}</a></li>
+                            {%endfor%}                                 
+                        </ul>
+                        <div class="tabs-content ">
+                            {%for lang in languages%}
+                            <div class="content {{loop.first?"active"}}" id="panel_{{lang.id}}">
+                                <div class="row">
+                                    <div class="large-5 columns">
+                                        <label>{{_category_name}}</label>
+                                        <input name="category[{{lang.id}}][name]" type="text" value="{{langs[lang.id].name}}" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-5 columns">
+                                        <label>{{_meta_tag_description}}</label>
+                                        <input name="category[{{lang.id}}][meta_tag_description]" type="text" value="{{langs[lang.id].meta_description}}" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-5 columns">
+                                        <label>{{_meta_tag_keywords}}</label>
+                                        <input name="category[{{lang.id}}][meta_tag_keywords]" type="text" value="{{langs[lang.id].meta_keyword}}" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="large-9 columns">
+                                        <label>{{_description}}</label>
+                                        <textarea name="category[{{lang.id}}][description]" >{{langs[lang.id].description|raw}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endfor%}       
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="content" id="panel2-2">
+                    <div class="panel">
+                        <div class="row">
+                            <div class="large-6 columns">
+                                <div class="category_s" >
+                                    <div class="category_title">{{_parent}}<a href="javascript:void(0);" onclick="return tb_ec(this);" class="right" >{{_expand_all}}</a></div>
+
+                                    <div id="cat_tree">
+                                        {{categoryTree|raw}}
+
+                                    </div> 
+                                    <input type="hidden" value="{{category.parent_id}}" id="parent_id" name="category[parent_id]"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <div class="row collapse">
+                                    <label>{{_category_image}}</label>
+                                    <div class="small-9 columns">                                        
+                                        <input name="category[image]" readonly="readonly" type="text" id="category_image" value="{{category.image}}" />
+                                        {%if category.image%}                                        
+                                        <a class="th" href="#">
+                                            <img src="{{category.image}}">
+                                        </a>
+                                        {%endif%}
+                                    </div>
+                                    <div class="small-3 columns">
+                                        <a id="category_image_select" class="fancybox fancybox-iframe button tiny small" href="{{BASEPATH}}/thirdparty/filemanager/dialog.php?type=1&amp;field_id=category_image">
+                                            {{button_select}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-3 columns">
+                                <label>{{_sort_order}}</label>
+                                <input name="category[sort_order]" type="text" value="{{category.sort_order}}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{%include "admin/plugin/fancybox.html"%}
+{%include "admin/plugin/tinymace.html"%}
+{%include "admin/plugin/jstree.html"%}
+
+<script>
+    var _lang_expand_all = '{{_expand_all}}';
+    var _lang_collapse_all = '{{_collapse_all}}';
+    var _tb_ec_flag = 1;
+    function tb_ec(a_tag){
+        if(_tb_ec_flag == 1){
+            $('#cat_tree').jstree('open_all');
+            _tb_ec_flag = 0;
+            $(a_tag).text(_lang_collapse_all);
+        }else{
+            _tb_ec_flag = 1;
+            $('#cat_tree').jstree('close_all');
+            $(a_tag).text(_lang_expand_all);
+        }
+    }
+    $(document).ready(function() {
+        tree = $('#cat_tree').jstree({
+            "plugins": ["wholerow"]
+//            "core": {
+//                "multiple": false
+//            }
+        });
+        tree.on("changed.jstree", function(e, data) {
+            $("#parent_id").val($("#" + data.selected).attr('data-id'))
+        });
+        {%if category_id%}
+        $('#cat_tree').jstree("select_node","node_{{category.parent_id}}");
+        $('#cat_tree').jstree("disable_node","node_{{category_id}}");
+        {%for cat in allSubCategory%}
+        $('#cat_tree').jstree("disable_node","node_{{cat.category_id}}");
+        {%endfor%}
+        {%endif%}
+        $('#category_image_select').fancybox({
+            maxWidth: 1000,
+            maxHeight: 600,
+            fitToView: false,
+            width: '80%',
+            height: '80%',
+            autoSize: false,
+            type: 'iframe',
+            closeClick: false,
+            openEffect: 'none',
+            closeEffect: 'none'
+        });
+    });
+</script>
+
+{% endblock %}

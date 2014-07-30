@@ -28,4 +28,19 @@ $_['_settings'] = 'Settings';
 $_['_users'] = 'Users';
 $_['_users_groups'] = 'Users Groups';
 $_['_backup_restore'] = 'Backup / Restore';
+$_['_localisation'] = 'Localisation';
+$_['_language'] = 'Language';
+$_['_currency'] = 'Currency';
 $_['_success'] = 'Success';
+
+
+//Text
+$_['_general'] = 'General';
+$_['_data'] = 'Data';
+$_['_meta_tag_description'] = 'Meta Tag Description';
+$_['_meta_tag_keywords'] = 'Meta Tag Keywords';
+$_['_description'] = 'Description';
+$_['_sort_order'] = 'Sort Order';
+$_['_status'] = 'Status';
+$_['_parent'] = 'Parent Category';
+$_['_seo_keyword'] = 'SEO Keyword';

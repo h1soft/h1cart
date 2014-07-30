@@ -2,9 +2,15 @@
 
 namespace H1Soft\H\Web;
 
+/**
+ * 
+ */
 class Application extends \H1Soft\H\HApplication {
 
-    // H1Soft\H\Web\Route
+   /**
+    *
+    * @var  H1Soft\H\Web\Route
+    */
     private static $_router;
     private static $request;
     private static $response;
@@ -22,12 +28,17 @@ class Application extends \H1Soft\H\HApplication {
         parent::__construct();
         self::$_app = $this;
     }
-
+    
+    /**
+     * 
+     * @param string $namespace
+     * @return \H1Soft\H\Web\Application
+     */
     public function bootstrap($namespace) {
         $this->bootstrap = $namespace;
         return $this;
     }
-
+    
     private function startBootstrap() {
         if ($this->bootstrap &&
                 class_exists($this->bootstrap)) {
@@ -89,18 +100,30 @@ class Application extends \H1Soft\H\HApplication {
     public static function request() {
         return self::$request;
     }
-
+    
+    /**
+     * 
+     * @return \H1Soft\H\Web\Response
+     */
     public static function response() {
         return self::$response;
     }
 
+    /**
+     * 
+     * @return \H1Soft\H\Web\Session
+     */
     public static function session() {
         if (!self::$_session) {
             self::$_session = Session::getInstance();
         }
         return self::$_session;
     }
-
+    
+    /**
+     * 
+     * @return \H1Soft\H\Web\Router
+     */
     public static function router() {
         return self::$_router;
     }

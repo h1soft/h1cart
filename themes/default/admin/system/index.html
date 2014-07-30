@@ -1,0 +1,37 @@
+{% extends "admin/layouts/admin.html" %}
+{% block content %}
+<div class="row ">
+    <div class="large-12 columns">
+        <br/>
+        <a href="{{url_to('system/backup')}}" class="button success small" >{{_btn_backup}}</a>
+        <div class="panel">
+
+            <table style="width: 100%"  >
+                <thead>
+                    <tr>                                                                         
+                        <th>{{_backup_name}}</th>                                    
+                        <th>{{button_action}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for bakName in backupList%}
+                    <tr>                                    
+                        <td >
+                            {{bakName}}                                     
+                        </td>                                    
+                        <td>
+                            <a href="{{url_to('system/backupremove' ,{file:bakName})}}" onclick="return H_Confirm('{{text_areyousure}}');" >{{button_delete}}</a>
+
+                        </td>
+                    </tr>                                            
+                    {% else %}
+                    <tr >
+                        <td colspan="3" align="center">{{text_nodata}}</td>                                            
+                    </tr>    
+                    {%endfor%}                                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% endblock %}

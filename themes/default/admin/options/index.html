@@ -1,0 +1,41 @@
+{% extends "admin/layouts/admin.html" %}
+{% block content %}
+<div class="row ">
+    <div class="large-12 columns">
+        <br/>
+        <a href="{{url_to('options/add')}}" class="button success small" >{{button_add}}</a>
+        <div class="panel">
+
+            <table style="width: 100%"  >
+                <thead>
+                    <tr>                                                                         
+                        <th>{{_option_name}}</th>                                    
+                        <th>{{button_action}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for option in options%}
+                    <tr>                                    
+                        <td >{{option.name}}</td>                                    
+                        <td>
+                            <a href="{{url_to('options/edit',{id:option.option_id} )}}" >{{button_edit}}</a>
+                            <a href="{{url_to('options/remove',{id:option.option_id} )}}" onclick="return H_Confirm('{{text_areyousure}}');" >{{button_delete}}</a>
+
+                        </td>
+                    </tr>    
+                    {% else %}
+                    <tr >
+                        <td colspan="3" align="center">{{text_nodata}}</td>                                            
+                    </tr>    
+                    {%endfor%}                                        
+                </tbody>
+            </table>
+
+        </div>
+        <br/>
+        <div class="right">
+            {{page.toHtml()}}
+        </div>
+    </div>
+
+    {% endblock %}

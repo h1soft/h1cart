@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "76c51158f2f9b428eed943d4be651b3d",
+    "hash": "d56c497a5fd7bc364056cb467da40879",
     "packages": [
         {
             "name": "h1soft/h",
-            "version": "v1.2.1",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/h1soft/h.git",
-                "reference": "99899ce52577d65bbf96d60af3411c92f9023609"
+                "reference": "36778ea36da4fcbc60659dfa92071e71faffb129"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/h1soft/h/zipball/99899ce52577d65bbf96d60af3411c92f9023609",
-                "reference": "99899ce52577d65bbf96d60af3411c92f9023609",
+                "url": "https://api.github.com/repos/h1soft/h/zipball/36778ea36da4fcbc60659dfa92071e71faffb129",
+                "reference": "36778ea36da4fcbc60659dfa92071e71faffb129",
                 "shasum": ""
             },
             "require": {
@@ -41,7 +41,7 @@
                 }
             ],
             "description": "PHP 5.3 MVC FRAMEWORK",
-            "time": "2014-07-20 14:56:45"
+            "time": "2014-07-25 04:42:48"
         },
         {
             "name": "twig/twig",

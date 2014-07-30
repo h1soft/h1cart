@@ -2,7 +2,6 @@
 
 //Title
 $_['_pageTitle'] = 'Settings';
-$_['_general'] = 'General';
 $_['_store'] = 'Store';
 $_['_local'] = 'Local';
 $_['_image'] = 'Image';

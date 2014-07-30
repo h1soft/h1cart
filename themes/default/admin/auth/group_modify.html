@@ -1,0 +1,30 @@
+{% extends "admin/layouts/admin.html" %}
+{% block content %}
+<div class="row ">
+    <div class="large-12 columns">
+        <br/>
+
+        <div class="panel">
+            <form role="form" name="hform" id="hform" method="post" action="">     
+                <div class="row">
+                    <div class="large-5 columns">
+                        <label>{{_group_name}}
+                            <input  type="text" name="name" value="{{item.name}}"></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-5 columns">
+                        <label>{{_description}}
+                            <input type="text" name="description" value="{{item.description}}"></label>
+                    </div>
+                </div>
+
+                <input type='hidden' name='id' value="{{item.id}}" />
+                <button type="submit" class="small">{{button_save}}</button>
+                <a href="#" class="button small" onclick="goBack('{{urlRef()}}');" >{{button_back}}</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

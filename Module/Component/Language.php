@@ -1,7 +1,19 @@
 <?php
 
+/*
+ * This file is part of the H1Cart package.
+ * (w) http://www.h1cart.com
+ * (c) Allen Niu <h@h1soft.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Module\Component;
 
+/**
+ * 多语言
+ */
 class Language extends \H1Soft\H\Singleton {
 
     private $default = 'chinese';
@@ -12,7 +24,10 @@ class Language extends \H1Soft\H\Singleton {
     private $iso_code = 'zh';
     private $language_code = 'zh-cn';
     private $lang;
-
+    
+    /**
+     * 初始化当前语言，根据浏览器语言 Cookie设置
+     */
     protected function init() {
         $this->directory = \H1Soft\H\Web\Application::$rootPath . 'lang/';
         $this->accpetLang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];

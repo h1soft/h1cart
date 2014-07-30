@@ -1,6 +1,6 @@
 <?php
 // Locale
-$_['_lang']                  = 'en1';
+$_['_lang']                  = 'en';
 $_['direction']             = 'ltr';
 $_['date_format_short']     = 'd/m/Y';
 $_['date_format_long']      = 'l dS F Y';
@@ -18,12 +18,16 @@ $_['text_select']           = ' --- Please Select --- ';
 $_['text_all_zones']        = 'All Zones';
 $_['text_pagination']       = 'Showing {start} to {end} of {total} ({pages} Pages)';
 $_['text_separator']        = ' &raquo; ';
+$_['text_areyousure']        = 'Are you sure?';
+$_['text_nodata']        = 'No data';
 
 // Buttons
 $_['button_select']    = 'Select';
 $_['button_add_address']    = 'Add Address';
 $_['button_back']           = 'Back';
+$_['button_action']           = 'Action';
 $_['button_save']           = 'Save';
+$_['button_add']           = 'Add';
 $_['button_continue']       = 'Continue';
 $_['button_cart']           = 'Add to Cart';
 $_['button_compare']        = 'Add to Compare';

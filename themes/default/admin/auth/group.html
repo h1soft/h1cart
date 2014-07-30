@@ -1,0 +1,69 @@
+{% extends "admin/layouts/admin.html" %}
+{% block content %}
+<div class="row ">
+    <div class="large-12 columns">
+        <br/>
+        <a href="#" class="button small" data-reveal-id="myModal">{{_btn_add}}</a>
+        <div class="panel">
+
+            <table style="width: 100%"  >
+                <thead>
+                    <tr>                                                                         
+                        <th>{{_pageTitle1}}</th>                                    
+                        <th>{{_description}}</th>                                    
+                        <th>{{button_action}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for row in list%}
+                    <tr>                                    
+                        <td >
+                            {{row.name}}                                     
+                        </td>                                    
+                        <td>{{row.description}}</td>                                    
+                        <td><a href="{{url_to('auth/modifygroup',{'id':row.id} )}}" >{{button_edit}}</a>
+                            <a href="{{url_to('auth/deletegroup',{'id':row.id} )}}" onclick="return H_Confirm('{{text_areyousure}}');" >{{button_delete}}</a>
+
+                        </td>
+                    </tr>                                            
+                    {% else %}
+                    <tr >
+                        <td colspan="4" align="center">{{text_nodata}}</td>                                            
+                    </tr>    
+                    {%endfor%}                                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div id="myModal" class="reveal-modal" data-reveal>
+        <form role="form" id="addgroup" name="addgroup" method="post" action="{{url_to('auth/addgroup')}}" >
+
+            <div class="form-group">
+                <label for="description">{{_pageTitle}}</label>
+                <input type="text" class="form-control" name="name" id="name" placeholder="">
+            </div>
+
+            <div class="form-group">
+                <label for="description">{{_description}}</label>
+                <input type="text" class="form-control" name="description" id="description" placeholder="">
+            </div>
+            
+            <input type="button" class="button" value="{{button_save}}" onclick="saveCategory();" />
+        </form>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+
+
+
+
+    <script type="text/javascript" >
+        function saveCategory() {
+            $.post("{{url_to('auth/addgroup')}}", $("#addgroup").serialize(), function(data) {
+            //                        console.log(data);
+            location = location.href;
+            });
+        }
+    </script>
+    {% endblock %}

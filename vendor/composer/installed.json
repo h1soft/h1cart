@@ -60,24 +60,24 @@
     },
     {
         "name": "h1soft/h",
-        "version": "v1.2.1",
-        "version_normalized": "1.2.1.0",
+        "version": "v1.2.2",
+        "version_normalized": "1.2.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/h1soft/h.git",
-            "reference": "99899ce52577d65bbf96d60af3411c92f9023609"
+            "reference": "36778ea36da4fcbc60659dfa92071e71faffb129"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/h1soft/h/zipball/99899ce52577d65bbf96d60af3411c92f9023609",
-            "reference": "99899ce52577d65bbf96d60af3411c92f9023609",
+            "url": "https://api.github.com/repos/h1soft/h/zipball/36778ea36da4fcbc60659dfa92071e71faffb129",
+            "reference": "36778ea36da4fcbc60659dfa92071e71faffb129",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0",
             "twig/twig": "1.*"
         },
-        "time": "2014-07-20 14:56:45",
+        "time": "2014-07-25 04:42:48",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

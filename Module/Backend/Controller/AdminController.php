@@ -21,7 +21,8 @@ class AdminController extends \H1Soft\H\Web\Controller {
         parent::init();
         $this->isAdmin();
         \H1Soft\H\Web\Config::set('view.theme', 'default');
-        $this->loadLang('backend/common');
+        $this->language('backend/common');
+        
     }
 
     public function setTitle($_title) {
@@ -47,15 +48,8 @@ class AdminController extends \H1Soft\H\Web\Controller {
      * @param type $autoset
      * @return \Module\Backend\Controller\AdminController
      */
-    public function loadLang($filename, $autoset = true) {
-        if ($autoset) {
-            $langs = Language::getInstance()->load($filename);
-            foreach ($langs as $key => $value) {
-                $this->assign($key, $value);
-            }
-        } else {
-            Language::getInstance()->load($filename);
-        }
+    public function loadLang($filename) {
+        Language::getInstance()->load($filename);
         return $this;
     }
 

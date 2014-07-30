@@ -1,0 +1,41 @@
+{% extends "admin/layouts/admin.html" %}
+{% block content %}
+<div class="row ">
+    <div class="large-12 columns">
+        <br/>
+        <a href="{{url_to('category/add')}}" class="button success small" >{{button_add}}</a>
+        <div class="panel">
+
+            <table style="width: 100%"  >
+                <thead>
+                    <tr>                                                                         
+                        <th>{{_category_name}}</th>                                    
+                        <th>{{button_action}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for cat in category%}
+                    <tr>                                    
+                        <td >{%if cat.depth>=2%}{{repeat('&nbsp;&nbsp;&nbsp;',cat.depth)|raw}}{%endif%}{{cat.name}}</td>                                    
+                        <td>
+                            <a href="{{url_to('category/edit',{id:cat.category_id} )}}" >{{button_edit}}</a>
+                            <a href="{{url_to('category/remove',{id:cat.category_id} )}}" onclick="return H_Confirm('{{text_areyousure}}');" >{{button_delete}}</a>
+
+                        </td>
+                    </tr>    
+                    {% else %}
+                    <tr >
+                        <td colspan="3" align="center">{{text_nodata}}</td>                                            
+                    </tr>    
+                    {%endfor%}                                        
+                </tbody>
+            </table>
+
+        </div>
+        <br/>
+        <div class="right">
+            {{page.toHtml()}}
+        </div>
+    </div>
+
+    {% endblock %}

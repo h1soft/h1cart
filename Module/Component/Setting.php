@@ -51,8 +51,9 @@ class Setting extends \H1Soft\H\Singleton {
         $skey = explode('.', $key);
         if (count($skey) == 2) {
             if (!isset($this->setting[$skey[0]])) {
-                $this->load($key);
+                $this->load($skey[0]);
             }
+            
             if (isset($this->setting[$skey[0]][$skey[1]])) {
                 return $this->setting[$skey[0]][$skey[1]];
             }

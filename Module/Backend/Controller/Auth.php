@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the H1Cart package.
  * (w) http://www.h1cart.com
@@ -7,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Module\Backend\Controller;
 
 /**
@@ -14,7 +16,11 @@ namespace Module\Backend\Controller;
  * @authName 授权管理
  * @authDescription 统一授权管理解决方案
  */
-class Auth extends \H1Soft\H\Web\Controller {
+class Auth extends AdminController {
+
+    public function before() {
+        $this->language('backend/auth');
+    }
 
     /**
      * 权限验证失败
@@ -32,9 +38,8 @@ class Auth extends \H1Soft\H\Web\Controller {
      * @authDescription 资源列表
      */
     function resourcesAction() {
-        $this->assign('menu_setting', 1);
         $this->isSuperAdmin();
-        
+
         $result = \H1Soft\H\Web\Extension\Category::query('resources');
         $this->saveUrlRef();
 
@@ -60,7 +65,6 @@ class Auth extends \H1Soft\H\Web\Controller {
      */
     function editrsAction() {
         $this->isSuperAdmin();
-        $this->assign('menu_setting', 1);
         $id = intval($this->get('id'));
         if ($this->isPost()) {
             $post = array(
@@ -88,7 +92,6 @@ class Auth extends \H1Soft\H\Web\Controller {
      */
     public function addrsAction() {
         $this->isSuperAdmin();
-        $this->assign('menu_setting', 1);
         $namespace = $this->post('namespace');
 
         $name = $this->post('name');
@@ -185,49 +188,46 @@ class Auth extends \H1Soft\H\Web\Controller {
 
     public function groupAction() {
         $this->isSuperAdmin();
-        $this->assign('menu_setting', 1);
-        
-        $tbname = $this->db()->tb_name('group');
+        $this->assign('_pageTitle', $this->lang('_pageTitle1'));
+
         //show resources
-        $groups = $this->db()->query("SELECT * FROM  `$tbname` ");
+        $groups = $this->db()->get('group');
 
         $this->saveUrlRef();
 
 
-        $this->render('admin/auth_group', array('list' => $groups));
+        $this->render('admin/auth/group', array('list' => $groups));
     }
 
     public function addGroupAction() {
-        $this->assign('menu_setting', 1);
         $this->isSuperAdmin();
         if ($this->isPost()) {
             $this->db()->insert('group', array(
                 'name' => $this->post('name'),
                 'description' => $this->post('description'),
             ));
-            $this->redirect($this->urlRef());
+//            $this->redirect($this->urlRef());
         }
     }
 
     public function modifyGroupAction() {
         $this->isSuperAdmin();
-        $this->assign('menu_setting', 1);
+        $this->assign('_pageTitle', $this->lang('_pageTitle1'));
         $id = intval($this->get('id'));
         if ($this->isPost()) {
             $post = array(
-                'name' => $this->post('name'),             
-                'description' => $this->post('description'),                
+                'name' => $this->post('name'),
+                'description' => $this->post('description'),
             );
 
             $this->db()->update('group', $post, "id=$id");
-            $this->redirect($this->urlRef());
+            $this->showFlashMessage($this->lang('_success'), H_SUCCESS,$this->urlRef());
+//            $this->redirect($this->urlRef());
         }
 
-        $tbname = $this->db()->tb_name('group');
+        $group = $this->db()->getOne("group", array('id' => $id));
 
-        $group = $this->db()->getRow("select * from `$tbname` where `id`=%d", array('id' => $id));
-
-        $this->render('admin/auth_group_modify', array('item' => $group, 'id' => $id));
+        $this->render('admin/auth/group_modify', array('item' => $group, 'id' => $id));
     }
 
     public function deleteGroupAction() {

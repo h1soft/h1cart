@@ -1,0 +1,202 @@
+{% extends "admin/layouts/admin.html" %}
+{% block content %}
+<div class="row ">
+    <div class="large-12 columns">
+        <form name="hform" id="hform" method="post" action=""> 
+            <div class="row">
+                <div class="large columns text-right">
+                    <button type="submit" class="medium success button">{{button_save}}</button>
+                </div>
+            </div>
+            <div class="panel clearfix">
+                <div class="row">
+                    <div class="large-4 columns">
+                        <input type="hidden" value="{{option_id}}" name="option_id" id="option_id" />
+                        {%for lang in languages%}                       
+                        <div class="row collapse">
+                            <label>{{_option_name}}</label>
+                            <div class="small-11 columns">
+                                <input name="option[{{lang.id}}][name]" type="text" value="{{option_description[lang.id].name}}" />
+                            </div>
+                            <div class="small-1 columns">
+                                <span class="postfix"><img src="{{BASEPATH}}/assets/icons/{{lang.iso_code}}.png"/></span>
+                            </div>
+                        </div>
+                        {%endfor%}  
+                    </div>                            
+                </div>
+                <div class="row">
+                    <div class="large-4 columns">
+                        <label>{{_type}}</label>
+
+                        <select name="input_type" id="input_type" >
+                            <optgroup label="{{_text_choose}}">
+                                {%if option.type=='select'%}
+                                <option value="select" selected>{{_text_select}}</option>
+                                {%else%}
+                                <option value="select">{{_text_select}}</option>
+                                {%endif%}
+                                {%if option.type=='radio'%}
+                                <option value="radio" selected>{{_text_radio}}</option>
+                                {%else%}
+                                <option value="radio">{{_text_radio}}</option>
+                                {%endif%}
+                                {%if option.type=='checkbox'%}
+                                <option value="checkbox" selected>{{_text_checkbox}}</option>
+                                {%else%}
+                                <option value="checkbox">{{_text_checkbox}}</option>
+                                {%endif%}
+                                {%if option.type=='image'%}
+                                <option value="image" selected>{{_text_image}}</option>
+                                {%else%}
+                                <option value="image">{{_text_image}}</option>
+                                {%endif%}
+                            </optgroup>
+                            <optgroup label="{{_text_input}}">
+                                {%if option.type=='text'%}
+                                <option value="text" selected>{{_text_text}}</option>
+                                {%else%}
+                                <option value="text">{{_text_text}}</option>
+                                {%endif%}
+                                {%if option.type== 'textarea'%}
+                                <option value="textarea" selected>{{_text_textarea}}</option>
+                                {%else%}
+                                <option value="textarea">{{_text_textarea}}</option>
+                                {%endif%}
+                            </optgroup>
+                            <optgroup label="{{_text_file}}">
+                                {%if option.type== 'file'%}
+                                <option value="file" selected>{{_text_file}}</option>
+                                {%else%}
+                                <option value="file">{{_text_file}}</option>
+                                {%endif%}
+                            </optgroup>
+                            <optgroup label="{{_text_date}}">
+                                {%if option.type== 'date'%}
+                                <option value="date" selected>{{_text_date}}</option>
+                                {%else%}
+                                <option value="date">{{_text_date}}</option>
+                                {%endif%}
+                                {%if option.type== 'time'%}
+                                <option value="time" selected>{{_text_time}}</option>
+                                {%else%}
+                                <option value="time">{{_text_time}}</option>
+                                {%endif%}
+                                {%if option.type== 'datetime'%}
+                                <option value="datetime" selected>{{_text_datetime}}</option>
+                                {%else%}
+                                <option value="datetime">{{_text_datetime|raw}}</option>
+                                {%endif%}
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-4 columns">
+                        <label>{{_sort_order}}</label>
+                        <input name="sort_order" type="text" value="{{option.sort_order}}" />
+                    </div>
+                </div>
+                <table class="large-12" id="option-value">
+                    <thead>
+                        <tr>
+                            <th>{{_option_value_name}}</th>
+                            <th>{{_text_image}}</th>
+                            <th>{{_column_sort_order}}</th>      
+                            <th>{{_column_action}}</th>
+                        </tr>
+                    </thead>
+                    {%set option_value_d_row=0%}
+                    {%for ov_item in option_values%}  
+                    <tbody id="option-value-row{{option_value_d_row}}">  
+                        <tr>    
+                            <td class="">
+                                <input type="hidden" name="option_value[{{option_value_d_row}}][option_value_id]" value="{{ov_item['option_value_id']}}">
+                                {%for lang in languages%}
+                                <div class="row collapse">
+                                    <div class="small-11 columns">
+                                        <input type="text" name="option_value[{{option_value_d_row}}][option_value_description][{{lang.id}}][name]" value="{{ov_item['option_value_description'][lang.id].name}}">
+                                    </div>
+                                    <div class="small-1 columns">
+                                        <span class="postfix"><img src="/h1cart/assets/icons/{{lang.iso_code}}.png" title="{{lang.name}}"></span>
+                                    </div>
+                                </div>
+                                {%endfor%}                               
+                            </td>    
+                            <td class="">
+                                <a class="th th_admin" href="#"><img src="{{ov_item.image}}" alt="" id="thumb{{option_value_d_row}}"></a>
+                                <input type="hidden" name="option_value[{{option_value_d_row}}][image]" onchange="ch_thubm({{option_value_d_row}},this);" value="{{ov_item.image}}" id="image{{option_value_d_row}}">
+                                <a href="{{BASEPATH}}/thirdparty/filemanager/dialog.php?type=1&amp;field_id=image{{option_value_d_row}}" class="fancybox fancybox-iframe">
+                                    {{_text_browse}}</a><a onclick="$('#thumb{{option_value_d_row}}').attr('src', ''); $('#image{{option_value_d_row}}').attr('value', '');">{{_text_clear}}</a></td>    
+                            <td class="">
+                                <input type="text" name="option_value[{{option_value_d_row}}][sort_order]" value="{{ov_item['sort_order']}}" size="1">
+                            </td>    
+                            <td class="">
+                                <a onclick="$('#option-value-row{{option_value_d_row}}').remove();" class="button small">Remove</a>
+                            </td>  
+                        </tr>
+                    </tbody>
+                    {%set option_value_d_row=option_value_d_row+1 %}
+                    {%endfor%}
+                    <tfoot>
+                        <tr>                        
+                            <td colspan="4" class="text-right"><button type="submit" class="medium success button">{{button_save}}</button>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="addOptionValue();" class="button">{{_button_add_option_value}}</a></td>
+                        </tr>
+
+                    </tfoot>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+{%include "admin/plugin/fancybox.html"%}
+<script type="text/javascript"><!--
+$('#input_type').bind('change', function() {
+    if (this.value == 'select' || this.value == 'radio' || this.value == 'checkbox' || this.value == 'image') {
+    $('#option-value').show();
+    } else {
+    $('#option-value').hide();
+    }
+    });
+            var option_value_row = {{option_value_d_row?:0}};
+            function addOptionValue() {
+            html = '<tbody id="option-value-row' + option_value_row + '">';
+                    html += '  <tr>';
+                    html += '    <td class=""><input type="hidden" name="option_value[' + option_value_row + '][option_value_id]" value="" />';
+            {% for lang in languages %}
+            html += '<div class="row collapse"><div class="small-11 columns"><input type="text" name="option_value[' + option_value_row + '][option_value_description][{{ lang.id }}][name]" value="" />';
+                    html += '</div><div class="small-1 columns"><span class="postfix"><img src="{{BASEPATH}}/assets/icons/{{lang.iso_code}}.png" title="{{lang.name}}" /></span></div>'
+                    html += '</div>';
+            {% endfor %}
+            html += '    </td>';
+                    html += '    <td class=""><a class="th th_admin" href="#"><img src="" alt="" id="thumb' + option_value_row + '" /></a><input type="hidden" name="option_value[' + option_value_row + '][image]" value="" id="image' + option_value_row + '" /><br /><a onclick="image_upload(\'image' + option_value_row + '\', \'thumb' + option_value_row + '\');">browse</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a onclick="$(\'#thumb' + option_value_row + '\').attr(\'src\', \'\'); $(\'#image' + option_value_row + '\').attr(\'value\', \'\');">{{_text_clear}}</a></div></td>';
+                    html += '    <td class=""><input type="text" name="option_value[' + option_value_row + '][sort_order]" value="" size="1" /></td>';
+                    html += '    <td class=""><a onclick="$(\'#option-value-row' + option_value_row + '\').remove();" class="button small">{{button_remove}}</a></td>';
+                    html += '  </tr>';
+                    html += '</tbody>';
+                    $('#option-value tfoot').before(html);
+                    option_value_row++;
+            }
+            function ch_thubm(id,self){
+                $('#thumb'+id).attr('src',$(self).val());
+            }
+$(document).ready(function() {
+    $('.fancybox-iframe').fancybox({
+        maxWidth: 1000,
+        maxHeight: 600,
+        fitToView: false,
+        width: '80%',
+        height: '80%',
+        autoSize: false,
+        type: 'iframe',
+        closeClick: false,
+        openEffect: 'none',
+        closeEffect: 'none'
+    });
+
+});
+            
+//--></script> 
+
+{% endblock %}

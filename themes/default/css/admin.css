@@ -17,3 +17,37 @@
     margin-left: 20px;
     margin-bottom: 0px;
 }
+
+
+.category_s {
+    border: solid 1px #ddd;
+    margin-left: 0;
+    margin-bottom: 1.25rem;
+}
+.category_s .category_title {
+    background-color: #f6f6f6;   
+    padding: 15px;
+    text-align: left;
+    color: #333;
+    
+    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+}
+#cat_tree {
+    background-color: #fff;
+}
+
+.th_admin {
+    width: 100px;
+    height: 100px;
+    background-color: #ddd;
+}
+
+.margin-top{
+    margin-top: 46px;
+}
+.bg_color_h {
+    background-color: #ddd;
+}
+.required{
+    color: red;
+}
